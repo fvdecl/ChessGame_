@@ -3,6 +3,7 @@
 
 View::BoardView::BoardView(float cellSizeX, float cellSizeY, float positionMargin)
 {
+    LoadTexture();
     SetupCell(cellSizeX, cellSizeY, positionMargin);
 }
 
@@ -51,18 +52,18 @@ View::CellView* View::BoardView::GetCellPtr(int cellPositionY, int cellPositionX
     return &this->boardView[cellPositionY][cellPositionX];
 }
 
-void View::BoardView::SetupPawn(std::vector<std::vector<sf::Texture>> &textureArr)
+void View::BoardView::SetupPawn()
 {
         for (int j = 0; j < 2; j++)
             for (int h = 0; h < 8; h++)
-                boardView[1 + (j * 5)][h].GetCellShapePtr()->setTexture(&textureArr.at(j).at(0));
+                boardView[1 + (j * 5)][h].GetCellShapePtr()->setTexture(&textures.at(j).at(0));
 
         for (int j = 0; j < 2; j++)
         {
             for (int h = 1; h < 6; h++)
-                boardView[j * 7][h - 1].GetCellShapePtr()->setTexture(&textureArr.at(j).at(h));
+                boardView[j * 7][h - 1].GetCellShapePtr()->setTexture(&textures.at(j).at(h));
             for (int h = 1; h < 4; h++)
-                boardView[j * 7][4 + h].GetCellShapePtr()->setTexture(&textureArr.at(j).at(4 - h));
+                boardView[j * 7][4 + h].GetCellShapePtr()->setTexture(&textures.at(j).at(4 - h));
         }
 }
 
@@ -96,4 +97,39 @@ View::CellView* View::BoardView::FindCellByNamePtr(std::string cellName)
         for (int j = 0; j < sizeof(boardView[0]) / sizeof(boardView[0][0]); j++)
             if (cellName == boardView[i][j].GetName())
                 return &boardView[i][j];
+}
+
+void View::BoardView::LoadTexture()
+{
+    textures.resize(2);
+    for (int i = 0; i < 2; i++)
+        textures[i].resize(6);
+
+    std::string texturePath[2][6] = {
+        {
+            "Assets/Texture/chess_figure/piece_b_0.png",
+            "Assets/Texture/chess_figure/piece_b_1.png",
+            "Assets/Texture/chess_figure/piece_b_2.png",
+            "Assets/Texture/chess_figure/piece_b_3.png",
+            "Assets/Texture/chess_figure/piece_b_4.png",
+            "Assets/Texture/chess_figure/piece_b_5.png"
+        },
+        {
+            "Assets/Texture/chess_figure/piece_w_0.png",
+            "Assets/Texture/chess_figure/piece_w_1.png",
+            "Assets/Texture/chess_figure/piece_w_2.png",
+            "Assets/Texture/chess_figure/piece_w_3.png",
+            "Assets/Texture/chess_figure/piece_w_4.png",
+            "Assets/Texture/chess_figure/piece_w_5.png"
+        }
+    };
+
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 6; j++)
+        {
+            if (!textures[i][j].loadFromFile(texturePath[i][j]))
+                std::cout << "Texture load failed: " << texturePath[i][j] << std::endl;
+        }
+    }
 }

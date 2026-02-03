@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Game.hpp"
+#include "GameSession.hpp"
 #include "Pawn.hpp"
 
 namespace Model

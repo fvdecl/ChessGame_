@@ -5,7 +5,7 @@
 #include <SFML/OpenGL.hpp>
 #include <vector>
 
-#include "Game.hpp"
+#include "GameSession.hpp"
 #include "Pawn.hpp"
 #include "PawnView.h"
 #include "CellView.hpp"
@@ -16,11 +16,12 @@ namespace View
 	{
 	private:
 		View::CellView boardView[8][8];
-		sf::Texture textureArr[2][6];
+		std::vector<std::vector<sf::Texture>> textures;
 
 		std::string CreateBoardCellNameByAlphabet(char alphabetSym, int boardCellHorizontalPosition);
 		char defAlphabet[8] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
 
+		void LoadTexture();
 	public:
 		BoardView(float cellSizeX = 60.0f, float cellSizeY = 60.0f, float positionMargin = 60.0f);
 
@@ -33,7 +34,7 @@ namespace View
 		CellView* GetCellPtr(int cellPositionY, int cellPositionX);
 		void ShowStepsForCell(int cellPositionY, int cellPositionX);
 		sf::RenderWindow* GetTargetWindowReference();
-		void SetupPawn(std::vector<std::vector<sf::Texture>>&textureArr);
+		void SetupPawn();
 		void SetupCell(float cellSizeX, float cellSizeY, float positionMargin);
 		CellView* FindCellByNamePtr(std::string cellName);
 	};

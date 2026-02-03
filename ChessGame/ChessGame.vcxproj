@@ -162,6 +162,7 @@
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellView.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameSession.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Horse.cpp" />
     <ClCompile Include="IPawnMovement.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Cell.hpp" />
     <ClInclude Include="CellView.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GameSession.hpp" />
     <ClInclude Include="GameView.h" />
     <ClInclude Include="Horse.h" />
     <ClInclude Include="IPawnMovement.h" />

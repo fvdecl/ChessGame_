@@ -3,7 +3,7 @@
 #include <cstddef>
 #include <iostream>
 
-#include "Game.hpp"
+#include "GameSession.hpp"
 
 
 namespace Model

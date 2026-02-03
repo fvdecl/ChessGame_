@@ -1,24 +1,48 @@
 #pragma once
 
-namespace ChessValue
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
+#include "BoardController.h"
+#include "GameSession.hpp"
+
+
+namespace Controller
 {
-	enum class Type : int { White = 1, Black = 0, None = 2 };
-	enum class Direction : int { left = 0, right = 1, down = 2, up = 3 };
-	enum class Shape : int { Pawn = 0, Rook = 1, Horse = 2, Bishop = 3, Queen = 4, King = 5};
-}
+    class Game
+    {
+    public:
+        Game(sf::RenderWindow& window);
+        void Run();
+        void UpdateTexts();
 
-namespace Model
-{
-	class Game
-	{
-	private:
+    private:
+        void ProcessEvents();
+        void HandleMouseClick(const sf::Event& event);
+        void SelectCell(int row, int col);
+        void TryMove(int row, int col);
+        void Update();
+        void Render();
 
-		ChessValue::Type ChessMoveQueue;
+    private:
+        sf::RenderWindow& window;
 
-	public:
-		Game(ChessValue::Type initPlayer);
+        Model::Board board;
+        View::BoardView boardView;
+        Controller::BoardController boardController;
+        Model::GameSession chessGame;
 
-		void SwitchChessPlayer();
-		ChessValue::Type getCurrentChessPlayer();
-	};
+
+        bool hasSelectedCell = false;
+        Model::Cell* selectedCell = nullptr;
+        std::vector<Model::Cell> availableSteps;
+
+        sf::RectangleShape selectedTexture;
+        
+        sf::Font font;
+
+        sf::Text currentPlayerText;
+        sf::Text whiteChessText;
+        sf::Text blackChessText;
+    };
 }
